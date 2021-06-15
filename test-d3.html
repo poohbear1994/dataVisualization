@@ -1,0 +1,51 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-15 19:47:16
+ * @LastEditTime: 2021-06-15 20:02:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/test-d3.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <title>d3</title>
+</head>
+<body>
+  <p>Vue</p>
+  <p>React</p>
+  <p>Angular</p>
+  <button id="datum">datum</button>
+  <button id="data">data</button>
+
+  <script>
+    // 这里获取的是d3的DOM
+    const body = d3.select('body')
+    const p = body.selectAll('p')
+
+    const doDatum = () => {
+      const str = 'Framework'
+      p.datum(str)
+      p.text((d, i) => {
+        return `${d}-${i}`
+      })
+    }
+
+    const doData = () => {
+      const dataset = ['Vue', 'React', 'Angular']
+      // 数据绑定
+      p.data(dataset)
+      p.text((d, i) => {
+        return `${d}-${i}`
+      })
+    }
+
+    document.getElementById('datum').addEventListener('click', doDatum)
+    document.getElementById('data').addEventListener('click', doData)
+  </script>
+</body>
+</html>
