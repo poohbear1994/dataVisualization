@@ -1,0 +1,73 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-15 19:27:50
+ * @LastEditTime: 2021-06-15 19:42:25
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/test-zrender.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/zrender@4.3.0/dist/zrender.js"></script>
+  <title>test-zrender</title>
+</head>
+<body>
+  <div id="container" style="width: 800px; height: 800px; border: 1px solid #111111;"></div>
+  <script>
+    // 初始化zrender画布
+    const zr = zrender.init(document.getElementById('container'))
+    // 构建矩形
+    const rect = new zrender.Rect({
+      shape: {
+        x: 0,
+        y: 0,
+        width: 50,
+        height: 50
+      },
+      style: {
+        fill: 'red',
+        lineWidth: 0
+      }
+    }) 
+
+    // 构建线段
+    const line = new zrender.Polyline({
+      shape: {
+        points: [
+          [100, 100],
+          [250, 75],
+          [300, 100],
+          [100, 100]
+        ]
+      },
+      style: {
+        stroke: 'blue',
+        lineWidth: 1
+      }
+    })
+
+    // 构建圆形
+    const circle = new zrender.Circle({
+      shape: {
+        cx: 200,
+        cy: 200,
+        r: 50
+      },
+      style: {
+        fill: 'red',
+        stroke: 'green',
+        lineWidth: 2
+      }
+    })
+
+    // 将图形添加到画布上
+    zr.add(rect)
+    zr.add(line)
+    zr.add(circle)
+  </script>
+</body>
+</html>
