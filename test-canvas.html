@@ -1,0 +1,54 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-15 14:45:38
+ * @LastEditTime: 2021-06-15 15:20:20
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/test-canvas.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test-canvas</title>
+</head>
+<body>
+  <canvas id="canvas" width="800" height="800" style="border: 1px solid #123456;"></canvas>
+  <script>
+    /** @type {HTMLCanvasElement} */
+    const canvas = document.getElementById('canvas')
+    // 获取2d绘图上下文
+    const ctx = canvas.getContext('2d')
+
+    // 填充颜色
+    ctx.fillStyle = 'red'
+    // 绘制矩形
+    ctx.fillRect(0, 0, 50, 50)
+
+    // 开始一个新的路径
+    ctx.beginPath()
+    ctx.lineWidth = 1
+    // 绘线颜色
+    ctx.strokeStyle = 'blue'
+    // 移动上下文到哪个位置
+    ctx.moveTo(100, 100)
+    ctx.lineTo(250, 0)
+    ctx.lineTo(250, 100)
+    ctx.lineTo(100, 100)
+    // 绘制线段
+    ctx.stroke()
+    ctx.fillStyle = 'yellow'
+    ctx.fill()
+
+    // 绘制弧线
+    ctx.beginPath()
+    ctx.lineWidth = 2
+    ctx.strokeStyle = 'green'
+    ctx.moveTo(300, 100)
+    ctx.arc(500, 100, 30, 0, 2*Math.PI, true)
+    ctx.stroke()
+  </script>
+</body>
+</html>
