@@ -1,0 +1,84 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-16 17:05:13
+ * @LastEditTime: 2021-06-16 17:22:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/antV/test-g6.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g6-3.7.1/dist/g6.min.js"></script>
+</head>
+<body>
+  <div id="g6-chart"></div>
+  <script>
+    const data = {
+      // 点集
+      nodes: [
+        {
+          id: 'node1', // 节点的唯一标识
+          x: 100, // 节点横坐标
+          y: 200, // 节点纵坐标,
+          size: 50,
+          label: '起始点', // 节点文本
+          labelCfg: {
+            position: 'bottom',
+            style: {
+              fontSize: 12,
+              fill: 'green'
+            }
+          },
+          style: {
+            fill: 'yellow',
+            stroke: '#998212',
+            lineWidth: 5
+          }
+        },
+        {
+          id: 'node2',
+          x: 300,
+          y: 200,
+          size: 50,
+          label: '中间点',
+        },
+        {
+          id: 'node3',
+          x: 200,
+          y: 500,
+          size: 50,
+          label: '目标点',
+        },
+      ],
+      // 边集
+      edges: [
+        // 表示一条从 node1 节点连接到 node2 节点的边
+        {
+          source: 'node1', // 起始点 id
+          target: 'node2', // 目标点 id
+          label: '我是连线', // 边的文本
+        },
+        {
+          source: 'node2', // 起始点 id
+          target: 'node3', // 目标点 id
+          label: '我是连线', // 边的文本
+        },
+      ],
+    }
+    // 初始化绘图上下文
+    const graph = new G6.Graph({
+      container: 'g6-chart',
+      width: 800,
+      height: 800
+    })
+    // 设置数据
+    graph.data(data)
+    graph.render()
+  </script>
+</body>
+</html>
