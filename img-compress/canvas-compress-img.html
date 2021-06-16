@@ -1,0 +1,136 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-16 14:14:41
+ * @LastEditTime: 2021-06-16 15:25:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/img-compress/canvas-compress-img.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="upload" />
+  <script>
+    const ACCEPT = ['image/jpg', 'image/png', 'image/jpeg']
+    const MAXSIZE = 1*1024*1024
+    const upload = document.getElementById('upload')
+    upload.addEventListener('change', (e) => {
+      const [file] = e.target.files
+
+      // 未选择任何文件
+      if (!file) {
+        return
+      }
+
+      // 解构图片信息
+      const {type: fileType, size: fileSize} = file
+
+      // 图片格式检查
+      if (!ACCEPT.includes(fileType)) {
+        alert(`不支持[${fileType}]格式的文件`)
+        upload.value = ''
+        return
+      }
+
+      // 图片大小检查
+      if (MAXSIZE < fileSize) {
+        alert(`图片大小不能超过${MAXSIZE/(1024*1024)}MB`)
+        upload.value = ''
+        return
+      }
+
+      // 压缩图片
+      convertImageToBase64(file, (base64Image) => {
+        compress(base64Image, uploadToServer)
+      })
+    })
+
+    /**
+     * @description: 转换图片为base64
+     * @param {*} params
+     * @return {*}
+     */    
+    function convertImageToBase64(file, callback) {
+      let reader = new FileReader()
+      reader.addEventListener('load', (e) => {
+        const base64Image = e.target.result
+        callback&&callback(base64Image)
+        reader = null
+      })
+      reader.readAsDataURL(file)
+    }
+
+    /**
+     * @description: 压缩图片
+     * @param {*} base64Image
+     * @return {*}
+     */    
+    function compress(base64Image, callback) {
+      // 设定图片最大宽高值
+      let maxW = 1024
+      let maxH = 1024
+      const image = new Image()
+      image.addEventListener('load', () => {
+        let ratio // 图片的压缩比
+        let isNeedCompress = false
+        // 宽度压缩值
+        if (maxW < image.naturalWidth) {
+          isNeedCompress = true
+          ratio = image.naturalWidth / maxW
+          maxH = image.naturalHeight / ratio
+        }
+        // 高度压缩值
+        if (maxH < image.naturalHeight) {
+          isNeedCompress = true
+          ratio = image.naturalHeight / maxH
+          maxW = image.naturalWidth /ratio
+        }
+        // 无需压缩
+        if (!isNeedCompress) {
+          maxW = image.naturalWidth
+          maxH = image.naturalHeight
+        }
+
+        // 使用canvas压缩图片
+        /** @type {HTMLCanvasElement} */
+        const canvas = document.createElement('canvas')
+        canvas.setAttribute('id','__compress__')
+        // 分辨率压缩
+        canvas.width = maxW
+        canvas.height = maxH
+        canvas.style.visibility = 'visible'
+        document.body.appendChild(canvas)
+        const ctx = canvas.getContext('2d')
+        ctx.clearRect(0, 0, maxW, maxH)
+        ctx.drawImage(image, 0, 0, maxW, maxH)
+        // 质量压缩
+        const compressImage = canvas.toDataURL('image/jpeg', 0.2)
+        callback&&callback(compressImage)
+        const _image = new Image()
+        _image.src = compressImage
+        document.body.append(_image)
+        canvas.remove()
+        alert(`压缩比：${_image.src.length/image.src.length}`)
+      })
+
+      image.src = base64Image
+      document.body.appendChild(image)
+    }
+
+    /**
+     * @description: 上传至服务器
+     * @param {*}
+     * @return {*}
+     */    
+    function uploadToServer() {
+      alert('已经上传到服务器')
+    }
+  </script>
+</body>
+</html>
