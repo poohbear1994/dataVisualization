@@ -1,0 +1,64 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-16 17:23:57
+ * @LastEditTime: 2021-06-16 18:12:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/antV/test-l7.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test-l7</title>
+  <script src = 'https://unpkg.com/@antv/l7'></script>
+</head>
+<body>
+  <div id="l7-map"></div>
+  <script>
+    // 初始化场景
+    const scene = new L7.Scene({
+      id: 'l7-map',
+      // 该场景基于高德地图
+      map: new L7.GaodeMap({
+        style: 'dark',
+        center: [ 102.698756,24.986727 ],
+        zoom: 1,
+        // 仰角
+        pitch: 0,
+        // 高德地图开发者 应用key
+        token: '1d28daa7a400fc1b5275df9fc4c4c089'
+      })
+    })
+
+    // 数据源(需要在场景初始化完毕后再调用，否则有可能把点绘制在地图下)
+    scene.on('loaded', () => {
+      fetch('https://gw.alipayobjects.com/os/basement_prod/337ddbb7-aa3f-4679-ab60-d64359241955.json')
+      .then(res => {
+        return res.json()
+      })
+      .then(data => {
+        data.features = data.features.filter(item => item.properties.capacity > 1000)
+        const pointLayer = new L7.PointLayer({})
+        .source(data)
+        .shape('circle')
+        // 颜色根据数据capacity的值变化
+        .color('capacity', ['white','yellow','yellowgreen','orange','red'])
+        // 根据大小在区间内绘图
+        .size('capacity', [0, 16])
+        .style({
+          strokeWidth: 0,
+          opacity: 0.5
+        })
+        // 让点可以交互
+        .active(true)
+
+        scene.addLayer(pointLayer)
+      })
+    })
+
+  </script>
+</body>
+</html>
