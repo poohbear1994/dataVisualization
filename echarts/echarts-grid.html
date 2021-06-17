@@ -1,0 +1,108 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-16 20:47:44
+ * @LastEditTime: 2021-06-17 15:47:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/echarts/test-echarts.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Echarts定位</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.js"></script>
+  <!-- 引入主题 -->
+   <script src="./infographic.js"></script>
+</head>
+<body>
+  <div id="chart" style="width: 800px; height: 400px; border: 1px solid #111111;"></div>
+
+  <script>
+    const chartDom = document.getElementById('chart')
+    // 生成绘图上下文(容器，主题，渲染方式)
+    const chart = echarts.init(chartDom, 'light',{renderer: 'svg'})
+    // 设置上下文如何绘图
+    chart.setOption({
+      // dataset让数据源集中管理
+      dataset: {
+        source: [
+          ['一季度', 100, '分类1', 20, 100],
+          ['二季度', 120, '分类2',60, 120],
+          ['三季度', 90, '分类3',85, 81],
+          ['四季度', 150, , , 88]
+        ]
+      },
+      title: {
+        text: 'Echarts定位',
+        subtext: '子标题-ljx🐂🍺'
+      },
+      // 图例
+      legend: {
+        // 需与每个serie的name一一对应
+        data: [{
+          name: '分类',
+          // 该系列图例的形状
+          icon: 'circle'
+        }, {
+          name: '折线图',
+          textStyle: {
+            color: 'red'
+          }
+        }, {
+          name: '柱状图',
+        }],
+        left: 470
+      },
+      // 对绘图进行定位
+      grid: {
+        top: 100,
+        right: 100,
+        bottom: 100,
+        left: 100
+      },
+      // 工具盒子
+      toolbox: {
+        feature: {
+          restore: {},
+          saveAsImage:{},
+          dataZoom: {
+            yAxisIndex: false
+          }
+        }
+      },
+      // 数据缩放条
+      dataZoom: [
+        {
+          show: true,
+          start: 0,
+          end: 100
+        }
+      ],
+      xAxis: {
+        data: ['一季度','二季度','三季度','四季度']
+      },
+      yAxis: {},
+      // 系列：一组数值映射成对应的图
+      series: [{
+        name: '柱状图',
+        type: 'bar',
+        // 对应的数据源第0列，与第1列
+        encode: {x: 0, y: 1} 
+      }, {
+        name: '分类',
+        type: 'pie',
+        center: ['50%', 60],
+        radius: 35,
+        encode: {itemName: 2, value: 3} 
+      }, {
+        name: '折线图',
+        type: 'line',
+        encode: {x: 0, y: 4} 
+      }]
+    })
+  </script>
+</body>
+</html>
