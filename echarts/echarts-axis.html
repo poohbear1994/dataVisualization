@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-16 20:47:44
- * @LastEditTime: 2021-06-17 16:39:36
+ * @LastEditTime: 2021-06-17 16:50:17
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/echarts/test-echarts.html
@@ -65,7 +65,8 @@
         source: [
           ['product', '2012', '2013', '2014', '2015'],
           ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
-          ['Milk Tea', 86.5, 92.1, 85.7, 83.1]
+          ['Milk Tea', 86.5, 92.1, 85.7, 83.1],
+          ['Candy', 90.2, 60.6, 23.1, 144.5]
         ]
       },
       series:[{
@@ -81,6 +82,11 @@
         xAxisIndex: 0
       }, {
         type: 'bar',
+        seriesLayoutBy: 'row',
+        yAxisIndex: 2,
+        xAxisIndex: 1
+      }, {
+        type: 'line',
         seriesLayoutBy: 'row',
         yAxisIndex: 2,
         xAxisIndex: 1
