@@ -1,0 +1,94 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-16 20:47:44
+ * @LastEditTime: 2021-06-17 16:39:36
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/echarts/test-echarts.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>echarts坐标系</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.js"></script>
+  <!-- 引入主题 -->
+   <script src="./infographic.js"></script>
+</head>
+<body>
+  <div id="chart" style="width: 800px; height: 800px; border: 1px solid #111111;"></div>
+
+  <script>
+    const chartDom = document.getElementById('chart')
+    // 生成绘图上下文(容器，主题，渲染方式)
+    const chart = echarts.init(chartDom, 'light',{renderer: 'svg'})
+    // 设置上下文如何绘图
+    chart.setOption({
+      xAxis: [{
+        gridIndex: 0,
+        type: 'category'
+      }, {
+        gridIndex: 1,
+        type: 'category'
+      }],
+      // 双y轴坐标系
+      yAxis: [{
+        gridIndex: 0,
+        min: 0,
+        max: 100  
+      }, {
+        gridIndex: 0,
+        // 刻度值切割线
+        splitLine: {
+          show: false
+        }
+      }, {
+        gridIndex: 1,
+        min: 0,
+        max: 150
+      }],
+      grid: [{
+        top: '5%',
+        right: '5%',
+        bottom: '55%',
+        left: '5%',
+      }, {
+        top: '50%',
+        right: '5%',
+        bottom: '5%',
+        left: '5%'
+      }],
+      // dataset让数据源集中管理
+      dataset: {
+        source: [
+          ['product', '2012', '2013', '2014', '2015'],
+          ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
+          ['Milk Tea', 86.5, 92.1, 85.7, 83.1]
+        ]
+      },
+      series:[{
+        type: 'bar',
+        seriesLayoutBy: 'row',
+        // 对应yAxis数组的第0个元素
+        yAxisIndex: 0,
+        xAxisIndex: 0
+      }, {
+        type: 'line',
+        seriesLayoutBy: 'row',
+        yAxisIndex: 1,
+        xAxisIndex: 0
+      }, {
+        type: 'bar',
+        seriesLayoutBy: 'row',
+        yAxisIndex: 2,
+        xAxisIndex: 1
+      }],
+      title: {
+        text: 'Echarts 坐标系'
+      }
+    })
+  </script>
+</body>
+</html>
