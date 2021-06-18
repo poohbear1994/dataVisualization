@@ -1,18 +1,33 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-17 20:51:02
+ * @LastEditTime: 2021-06-18 13:09:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
 -->
 <template>
-  <div class="home">report</div>
+  <div class="home">
+    <top-view></top-view>
+    <sales-view></sales-view>
+    <map-view></map-view>
+    <bottom-view></bottom-view>
+  </div>
 </template>
 
 <script>
+import TopView from '@/components/TopView'
+import SalesView from '@/components/SalesView'
+import MapView from '@/components/MapView'
+import BottomView from '@/components/BottomView'
 export default {
-  name: 'Home'
+  name: 'Home',
+  components: {
+    TopView,
+    SalesView,
+    MapView,
+    BottomView
+  }
 }
 </script>
 
