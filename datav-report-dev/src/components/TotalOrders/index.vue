@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:55:40
- * @LastEditTime: 2021-06-19 15:32:42
+ * @LastEditTime: 2021-06-19 15:46:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
@@ -62,7 +62,13 @@ export default {
         itemStyle: {
           opacity: 0
         }
-      }]
+      }],
+      grid: {
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }
     })
   }
 }
