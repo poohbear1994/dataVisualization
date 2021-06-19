@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-17 20:43:38
+ * @LastEditTime: 2021-06-18 14:05:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/main.js
@@ -15,7 +15,6 @@ import Echarts from 'echarts'
 Vue.config.productionTip = false
 // 将echarts挂载到原型上，方便全局调用
 Vue.prototype.$echarts = Echarts
-console.log(Echarts)
 new Vue({
   router,
   render: h => h(App)

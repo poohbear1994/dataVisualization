@@ -1,21 +1,20 @@
 <!--
  * @Author: your name
- * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-18 14:01:26
+ * @Date: 2021-06-18 13:55:40
+ * @LastEditTime: 2021-06-18 14:08:57
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /datav-report-dev/src/components/TopView/index.vue
+ * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
 -->
 <template>
-  <div>bottom view</div>
+  <common-card></common-card>
 </template>
 
 <script>
+import commonCardMixin from '@/mixins/commonCardMixin'
 export default {
-  name: 'bottomView',
-  components: {
-
-  },
+  name: 'totalUsers',
+  mixins: [commonCardMixin],
   data () {
     return {
 

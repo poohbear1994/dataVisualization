@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-17 21:18:24
+ * @LastEditTime: 2021-06-18 14:00:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: '',
+  name: 'mapView',
   components: {
 
   },

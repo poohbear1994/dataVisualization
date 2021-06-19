@@ -1,18 +1,18 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-17 21:16:19
+ * @LastEditTime: 2021-06-18 14:00:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
 -->
 <template>
-  <div>top view</div>
+  <div>sales View</div>
 </template>
 
 <script>
 export default {
-  name: '',
+  name: 'salesView',
   components: {
 
   },

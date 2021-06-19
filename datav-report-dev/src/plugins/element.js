@@ -1,13 +1,20 @@
 /*
  * @Author: your name
  * @Date: 2021-06-17 20:25:25
- * @LastEditTime: 2021-06-17 20:34:42
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-18 13:29:37
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/plugins/element.js
  */
 import Vue from 'vue'
 // 按需引入button组件
-import { Button } from 'element-ui'
+import {
+  Card,
+  Row,
+  Col
+} from 'element-ui'
 
-Vue.use(Button)
+Vue
+  .use(Card)
+  .use(Row)
+  .use(Col)
