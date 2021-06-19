@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:44:06
- * @LastEditTime: 2021-06-18 16:41:35
+ * @LastEditTime: 2021-06-19 15:57:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/CommonCard/index.vue
@@ -83,11 +83,19 @@ span {
   font-weight: 700;
 }
 .increase {
-    width: 0;
-    height: 0;
-    border-width: 5px;
-    border-color: transparent transparent red transparent;
-    border-style: solid;
-    margin: 0 0 3px 5px;
-  }
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-color: transparent transparent red transparent;
+  border-style: solid;
+  margin: 0 0 3px 5px;
+}
+.decrease {
+  width: 0;
+  height: 0;
+  border-width: 5px;
+  border-color: greenyellow transparent transparent transparent;
+  border-style: solid;
+  margin: 3px 0 0 5px;
+}
 </style>

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:49:01
- * @LastEditTime: 2021-06-18 16:41:00
+ * @LastEditTime: 2021-06-19 15:57:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalSales/index.vue
@@ -63,22 +63,6 @@ export default {
     font-size: 12px;
     margin-top: 3px;
     color: #666;
-    .increase {
-      width: 0;
-      height: 0;
-      border-width: 5px;
-      border-color: transparent transparent red transparent;
-      border-style: solid;
-      margin: 0 0 3px 5px;
-    }
-    .decrease {
-      width: 0;
-      height: 0;
-      border-width: 5px;
-      border-color: greenyellow transparent transparent transparent;
-      border-style: solid;
-      margin: 3px 0 0 5px;
-    }
   }
 }
 </style>
