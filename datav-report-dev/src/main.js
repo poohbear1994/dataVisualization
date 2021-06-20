@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-20 15:28:50
+ * @LastEditTime: 2021-06-20 15:47:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/main.js
@@ -14,6 +14,7 @@ import './plugins/vcharts.js'
 // 全局引入echarts
 import * as Echarts from 'echarts'
 import VueECharts from 'vue-echarts'
+import './style/index.css'
 
 Vue.config.productionTip = false
 
