@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:55:40
- * @LastEditTime: 2021-06-20 15:55:59
+ * @LastEditTime: 2021-06-20 19:00:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
@@ -67,7 +67,6 @@ export default {
           data: [200],
           stack: '总量',
           renderItem: (params, api) => {
-            console.log(params, api)
             const value = api.value(0)
             // 计算出绘制三角形的坐标
             const endPoint = api.coord([value, 0])
