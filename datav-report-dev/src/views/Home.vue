@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-18 13:09:53
+ * @LastEditTime: 2021-06-21 15:34:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
@@ -10,8 +10,8 @@
   <div class="home">
     <top-view></top-view>
     <sales-view></sales-view>
-    <map-view></map-view>
     <bottom-view></bottom-view>
+    <map-view></map-view>
   </div>
 </template>
 

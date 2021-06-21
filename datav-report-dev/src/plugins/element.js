@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-17 20:25:25
- * @LastEditTime: 2021-06-20 19:07:22
+ * @LastEditTime: 2021-06-21 15:47:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/plugins/element.js
@@ -17,7 +17,10 @@ import {
   Radio,
   RadioGroup,
   RadioButton,
-  DatePicker
+  DatePicker,
+  Table,
+  TableColumn,
+  Pagination
 } from 'element-ui'
 
 Vue
@@ -30,3 +33,6 @@ Vue
   .use(RadioGroup)
   .use(RadioButton)
   .use(DatePicker)
+  .use(Table)
+  .use(TableColumn)
+  .use(Pagination)
