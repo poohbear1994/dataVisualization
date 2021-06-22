@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-22 13:17:25
- * @LastEditTime: 2021-06-22 14:18:05
+ * @LastEditTime: 2021-06-22 14:44:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/baidu-map/test-bmap.html
@@ -13,7 +13,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2"></script>
-  <title>百度地图-3d</title>
+  <title>百度地图-控件</title>
   <style>
     html, body {
       width: 100%;
@@ -35,11 +35,15 @@
   <div id="map"></div>
   <script>
     // 地图容器
-    const map = new BMapGL.Map('map')
+    const map = new BMapGL.Map('map', {
+      minZoom: 8,
+      maxZoom: 16,
+      mapType: BMAP_NORMAL_MAP
+    })
     // 生成一个坐标点
     const point = new BMapGL.Point(102.705194,24.992562)
     // 根据地图中心与缩放绘制地图
-    map.centerAndZoom(point, 1)
+    map.centerAndZoom(point, 10)
     // 允许通过滚轮缩放
     map.enableScrollWheelZoom(true)
     let heading = 0
@@ -48,7 +52,33 @@
     // 设置倾斜
     map.setTilt(0)
     // 设置地图类型
-    map.setMapType(BMAP_EARTH_MAP)
+    map.setMapType(BMAP_NORMAL_MAP)
+    // 设置最小可缩放
+    map.setMinZoom(8)
+    // 设置最大可缩放
+    map.setMaxZoom(16)
+
+    // 创建缩放控制控件
+    const zoomCtrl = new BMapGL.ZoomControl({
+      anchor: BMAP_ANCHOR_TOP_LEFT,
+      // 设置缩放控件的偏移
+      offset: new BMapGL.Size(100, 10)
+    })
+    // 添加控件到地图上
+    map.addControl(zoomCtrl)
+    // 缩放事件
+    map.addEventListener('zoomstart', () => {
+      console.log(map.getZoom())
+    })
+    map.addEventListener('zoomend', () => {
+      console.log(map.getZoom())
+    })
+
+    // 创建标尺控件
+    const scaleCtr = new BMapGL.ScaleControl({
+      anchor: BMAP_ANCHOR_TOP_RIGHT
+    })
+    map.addControl(scaleCtr)
   </script>
 </body>
 </html>
