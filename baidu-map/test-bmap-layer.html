@@ -1,0 +1,108 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-22 13:17:25
+ * @LastEditTime: 2021-06-22 15:50:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/baidu-map/test-bmap.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2"></script>
+  <title>百度地图绘图</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+     #map {
+      width: 100%;
+      height: 100%;
+    }
+    /* 隐藏logo与版权 */
+    .anchorBL, .BMap_cpyCtrl {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // 地图容器
+    const map = new BMapGL.Map('map')
+    // 生成一个坐标点
+    const point = new BMapGL.Point(116.404, 39.915)
+    // 根据地图中心与缩放绘制地图
+    map.centerAndZoom(point, 10)
+    // 允许通过滚轮缩放
+    map.enableScrollWheelZoom(true)
+    // 设置地图样式
+    map.setMapStyleV2({
+      styleId: '5a73041ef9e28c7bda8a39bf8e34a88d'
+    })
+
+    // 新建图标
+    const myIcon = new BMapGL.Icon(
+      'https://www.youbaobao.xyz/datav-res/datav/location.png', 
+      new BMapGL.Size(60, 60), {
+        anchor: new BMapGL.Size(0, 0),
+        imageOffset: new BMapGL.Size(0, 0)
+      }
+    )
+    const marker = new BMapGL.Marker(point, {
+      icon: myIcon
+    })
+    marker.addEventListener('click', () => {
+      const infoWindow = new BMapGL.InfoWindow('infoWindow测试', {
+        width: 200,
+        height: 100,
+        title: '说明',
+        offset: new BMapGL.Size(30, 0)
+      })
+      // 在地图上打开指定的infoWindow
+      map.openInfoWindow(infoWindow, point)
+    })
+    // 添加覆盖类
+    map.addOverlay(marker)
+
+    // 绘制线段
+    const polyline = new BMapGL.Polyline([
+      new BMapGL.Point(116.399, 39.800),
+      new BMapGL.Point(116.405, 39.820)
+    ], {
+      strokeColor: '#fff',
+      strokeWeight: 4
+    })
+    map.addOverlay(polyline)
+
+    // 绘制多边形
+    const polygon = new BMapGL.Polygon([
+      new BMapGL.Point(116.399, 39.800),
+      new BMapGL.Point(116.305, 39.720),
+      new BMapGL.Point(116.477, 39.890),
+      new BMapGL.Point(116.399, 39.800)
+    ], {
+      strokeColor: '#fff',
+      strokeWeight: 4,
+      fillColor: 'red'
+    })
+    map.addOverlay(polygon)
+
+    // 绘制文本
+    const label = new BMapGL.Label('我在家学习数据可视化', {
+      position: new BMapGL.Point(102.705194,24.992562)
+    })
+    label.addEventListener('click', (e) => {
+      console.log(e)
+    })
+    map.addOverlay(label)
+
+  </script>
+</body>
+</html>
