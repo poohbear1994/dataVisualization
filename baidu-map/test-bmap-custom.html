@@ -1,0 +1,51 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-22 13:17:25
+ * @LastEditTime: 2021-06-22 14:57:41
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/baidu-map/test-bmap.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2"></script>
+  <title>百度地图入门</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+     #map {
+      width: 100%;
+      height: 100%;
+    }
+    /* 隐藏logo与版权 */
+    .anchorBL, .BMap_cpyCtrl {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // 地图容器
+    const map = new BMapGL.Map('map')
+    // 生成一个坐标点
+    const point = new BMapGL.Point(116.404, 39.915)
+    // 根据地图中心与缩放绘制地图
+    map.centerAndZoom(point, 10)
+    // 允许通过滚轮缩放
+    map.enableScrollWheelZoom(true)
+    // 设置地图样式
+    map.setMapStyleV2({
+      styleId: '5a73041ef9e28c7bda8a39bf8e34a88d'
+    })
+  </script>
+</body>
+</html>
