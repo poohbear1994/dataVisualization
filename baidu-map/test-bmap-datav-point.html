@@ -1,0 +1,129 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-22 13:17:25
+ * @LastEditTime: 2021-06-24 17:26:30
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/baidu-map/test-bmap.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入百度地图API -->
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2"></script>
+  <!-- 引入mapv的公共样式地图生成器 -->
+  <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
+  <!-- 引入mapV -->
+  <script src="https://mapv.baidu.com/build/mapv.js"></script>
+  <!-- 引入mapvGL -->
+  <script src="https://unpkg.com/mapvgl/dist/mapvgl.min.js"></script>
+  <title>百度地图可视化——散点图</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+     #map_container {
+      width: 100%;
+      height: 100%;
+    }
+    /* 隐藏logo与版权 */
+    .anchorBL, .BMap_cpyCtrl {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="map_container"></div>
+  <script>
+    const map = initBMap()
+    const data = initData()
+    setData(map, data)
+
+    // 1.生成地图
+    function initBMap() {
+      const cityCenter = mapv.utilCityCenter.getCenterByCityName('南京')
+      // 使用initMap的方式创建地图 默认使用map_container的id容器
+      const map = initMap({
+        tilt: 0,
+        center: [cityCenter.lng, cityCenter.lat],
+        zoom: 10,
+        style: snowStyle
+      })
+      return map
+    }
+
+    // 2.准备数据源
+    function initData() {
+      let data = []
+      const cities = ['北京', '天津', '上海', '重庆', '石家庄', '太原', '呼和浩特', '哈尔滨', '长春',
+				'沈阳', '济南', '南京', '合肥', '杭州', '南昌', '福州', '郑州', '武汉', '长沙', '广州',
+				'南宁', '西安', '银川', '兰州', '西宁', '乌鲁木齐', '成都', '贵阳', '昆明', '拉萨', '海口']
+        // 模拟产生700个散点
+      let random = 700
+      while(random --) {
+        // 根据城市名称获取城市中心坐标
+        const cityCenter = mapv.utilCityCenter.getCenterByCityName(cities[parseInt(Math.random() * cities.length)])
+        // 所有的数据都需要满足以下对象属性的要求
+        data.push({
+          // 几何
+          geometry:{
+            // 类型
+            type: 'Point',
+            // 坐标 使用随机数填充模拟数据的坐标
+            coordinates: [cityCenter.lng - 2 + Math.random() * 4, cityCenter.lat - 2 + Math.random() * 4]
+          },
+          // properties用来放置一些自定义的属性数据
+          properties: {
+            sales: Math.random() * 100
+          }
+        })
+      }
+      // 只展示sales > 90的数据
+      data = data.filter((item) => {
+        return item.properties.sales > 90
+      })
+      return data
+    }
+
+    // 3.绘制数据源
+    function setData(map, data) {
+      // 生成 mapvgl 视图的 view，我们所有的绘图都是在这个view上完成，相当于画布
+      const view = new mapvgl.View({ map })
+      // 初始化Intensity对象，用来控制点的大小与颜色
+      const intensity = new mapvgl.Intensity({
+        min: 0,
+        max: 100,
+        minSize: 5,
+        maxSize: 15,
+        gradient: {
+          0: 'rgba(25, 66, 102, 0.8)',
+          0.3: 'rgba(145, 102, 129, 0.8)',
+          0.7: 'rgba(210, 131, 137, 0.8)',
+          1: 'rgba(248, 177, 149, 0.8)'
+        }
+      })
+      // 初始化mapvgl 的 pointLayer 对象
+      const pointLayer = new mapvgl.PointLayer({
+        // 点的尺寸
+        size(data) {
+          return intensity.getSize(data.properties.sales)
+        },
+        // 点的颜色
+        color(data) {
+          return intensity.getColor(data.properties.sales)
+        }
+      })
+      // 将 pointLayer 对象加入 view 中
+      view.addLayer(pointLayer)
+      // 将data与point绑定
+      pointLayer.setData(data)
+    }
+  </script>
+</body>
+</html>
