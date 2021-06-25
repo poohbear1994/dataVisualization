@@ -1,0 +1,167 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-22 13:17:25
+ * @LastEditTime: 2021-06-25 18:31:27
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/baidu-map/test-bmap.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入百度地图API -->
+  <script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2"></script>
+  <!-- 引入mapv的公共样式地图生成器 -->
+  <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
+  <!-- 引入mapV -->
+  <script src="https://mapv.baidu.com/build/mapv.js"></script>
+  <!-- 引入mapvGL -->
+  <script src="https://unpkg.com/mapvgl/dist/mapvgl.min.js"></script>
+  <!-- 飞线动画基于Three.js实现，因此还需要引入这个 -->
+  <script src="https://unpkg.com/mapvgl/dist/mapvgl.threelayers.min.js"></script>
+  <title>百度地图可视化——酷炫飞线动画</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #map_container {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 隐藏logo与版权 */
+    .anchorBL,
+    .BMap_cpyCtrl {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map_container"></div>
+  <script>
+    const map = initBMap()
+    const data = initData()
+    setData(map, data)
+
+    // 1.生成地图
+    function initBMap() {
+      const cityCenter = mapv.utilCityCenter.getCenterByCityName('北京')
+      // 使用initMap的方式创建地图 默认使用map_container的id容器
+      const map = initMap({
+        tilt: 0,
+        center: [cityCenter.lng, cityCenter.lat],
+        zoom: 7,
+        style: purpleStyle
+      })
+      return map
+    }
+
+    // 2.准备数据源
+    function initData() {
+      let data = []
+      const cities = ['北京', '天津', '上海', '重庆', '石家庄', '太原', '呼和浩特', '哈尔滨', '长春',
+        '沈阳', '济南', '南京', '合肥', '杭州', '南昌', '福州', '郑州', '武汉', '长沙', '广州',
+        '南宁', '西安', '银川', '兰州', '西宁', '乌鲁木齐', '成都', '贵阳', '昆明', '拉萨', '海口'
+      ]
+      const targetCity = mapv.utilCityCenter.getCenterByCityName('北京')
+      // 边绑定算法
+      // 点集
+      const nodeData = [{
+        x: targetCity.lng,
+        y: targetCity.lat
+      }]
+      // edgeData 表示 nodeData中每个点与每个点之间的关系
+      const edgeData = [
+        // {
+          // 起点（对应的nodeData中的0号元素）
+          // source: 0,
+          // 终点（对应的nodeData中的0号元素）
+          // target: 0
+        // } 
+      ]
+      const randomCount = 500
+      // 构建贝塞尔曲线对象
+      for (let i = 0; i < randomCount; i++) {
+        const startCity = mapv.utilCityCenter.getCenterByCityName(cities[parseInt(cities.length * Math.random())])
+        nodeData.push({
+          x: startCity.lng + 5 - Math.random() * 10,
+          y: startCity.lat + 5 - Math.random() * 10
+        })
+        edgeData.push({
+          // 起点（对应的nodeData中的index号元素）
+          source: i + 1,
+          // 目标点（对应的nodeData中的index号元素）
+          target: 0
+        })
+      }
+      // 强制边绑定算法
+      const bundling = mapv.utilForceEdgeBundling().nodes(nodeData).edges(edgeData)
+      // 返回一个二维数组
+      const results = bundling()
+      // 第一层循环，边循环
+      for (let i=0; i<results.length; i++) {
+        const line = results[i]
+        let coordinates = []
+        // 将每条边涉及到的点，生成坐标集
+        for (let j=0; j < line.length; j++) {
+          coordinates.push([line[j].x, line[j].y])
+        }
+        data.push({
+          geometry: {
+            type: 'LineString',
+            coordinates: coordinates
+          }
+        })
+      }
+      return data
+    }
+
+    // 3.绘制数据源
+    function setData(map, data) {
+      // 生成 mapvgl 视图的 view，我们所有的绘图都是在这个view上完成，相当于画布
+      const view = new mapvgl.View({
+        map
+      })
+      // 初始化linelayer
+      const lineLayer = new mapvgl.LineLayer({
+        color: 'rgba(55, 50, 250, 0.3)',
+        blend: 'lighter'
+      })
+      // 将lineLayer添加到view上
+      view.addLayer(lineLayer)
+      // 设置lineLayer的数据源
+      lineLayer.setData(data)
+      
+      // 初始化 linePointLayer（点轨迹图层）
+      const linePointLayer = new mapvgl.LinePointLayer({
+        // 点大小
+        size: 8,
+        // 点运动速度
+        speed: 12,
+        // 点颜色
+        color: 'rgba(255, 255, 0, 0.6)',
+        // 点动画
+        animationType: mapvgl.LinePointLayer.ANIMATION_TYPE_SMOOTH,
+        // 点形状
+        shapeType: mapvgl.LinePointLayer.SHAPE_TYPE_CIRCLE,
+        // 点叠加时高亮
+        blend: 'lighter'
+      });
+      view.addLayer(linePointLayer);
+      linePointLayer.setData(data);
+    }
+  </script>
+</body>
+
+</html>
