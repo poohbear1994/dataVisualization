@@ -1,0 +1,135 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-06-22 13:17:25
+ * @LastEditTime: 2021-06-25 19:28:50
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /Data visualization/baidu-map/test-bmap.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入百度地图API -->
+  <script type="text/javascript"
+    src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2"></script>
+  <!-- 引入mapv的公共样式地图生成器 -->
+  <script src="https://mapv.baidu.com/gl/examples/static/common.js"></script>
+  <!-- 引入mapV -->
+  <script src="https://mapv.baidu.com/build/mapv.js"></script>
+  <!-- 引入mapvGL -->
+  <script src="https://unpkg.com/mapvgl/dist/mapvgl.min.js"></script>
+  <!-- 飞线动画基于Three.js实现，因此还需要引入这个 -->
+  <script src="https://unpkg.com/mapvgl/dist/mapvgl.threelayers.min.js"></script>
+  <title>百度地图可视化——3d建筑</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #map_container {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 隐藏logo与版权 */
+    .anchorBL,
+    .BMap_cpyCtrl {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map_container"></div>
+  <script>
+    const map = initBMap()
+    initData().then(data => {
+      setData(map, data)
+    })
+
+    // 1.生成地图
+    function initBMap() {
+      const cityCenter = mapv.utilCityCenter.getCenterByCityName('重庆')
+      // 使用initMap的方式创建地图 默认使用map_container的id容器
+      const map = initMap({
+        tilt: 80,
+        heading: -45.3,
+        center: [cityCenter.lng, cityCenter.lat],
+        zoom: 17
+      })
+      return map
+    }
+
+    // 初始化数据源
+    function initData() {
+      let data = []
+      // 获取重庆是地图建筑数据
+      return fetch('https://www.youbaobao.xyz/datav-res/examples/chongqing.json')
+        .then(res => res.json())
+        .then(res => {
+          const polygons = []
+          const len = res.length
+          for (let i = 0; i < len; i++) {
+            const line = res[i];
+            const polygon = []
+            // 坐标（第0个元素为高度，第二第三个才是经纬度）按照官方示例demo转换为墨卡托坐标
+            const pt = [line[1] * 512, line[2] * 512]
+            for (let j = 3; j < line.length; j += 2) {
+              pt[0] += line[j] / 100 / 2
+              pt[1] += line[j + 1] / 100 / 2
+              polygon.push([pt[0], pt[1]])
+            }
+            polygons.push({
+              geometry: {
+                type: 'Polygon',
+                coordinates: [polygon]
+              },
+              properties: {
+                height: line[0] / 2
+              }
+            })
+          }
+          return polygons
+        })
+    }
+
+    // 设置绘图数据源
+    function setData(map, data) {
+      const view = new mapvgl.View({
+        map
+      })
+      // 创建shapeLayer
+      const shapeLayer = new mapvgl.ShapeLayer({
+        color: 'blue',
+        opacity: 1,
+        style: 'windowAnimation',
+        // 叠加时效果
+        blend: 'lighter',
+        // 建筑升起时间
+        riseTime: 2000,
+        // 是否可选中
+        enablePicked: true,
+        // 手动指定选中数据项索引，使该条数据所表示物体变色，-1表示没选中任何元素
+        selectedIndex: -1,
+        selectedColor: 'yellow',
+        // 根据鼠标位置来自动设置选中项selectedIndex，使选中物体变色，设置为true后selectedIndex失效
+        autoSelect: true,
+        onClick(e) {
+          console.log(e)
+        }
+      })
+      view.addLayer(shapeLayer)
+      shapeLayer.setData(data)
+    }
+  </script>
+</body>
+
+</html>
