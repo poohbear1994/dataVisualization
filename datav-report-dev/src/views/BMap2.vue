@@ -1,19 +1,21 @@
 <!--
  * @Author: your name
- * @Date: 2021-06-26 13:28:27
- * @LastEditTime: 2021-06-27 16:33:56
+ * @Date: 2021-06-27 14:43:10
+ * @LastEditTime: 2021-06-27 16:36:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: /Data visualization/datav-report-dev/src/views/BMap.vue
+ * @FilePath: /Data visualization/datav-report-dev/src/views/BMap2.vue
 -->
 <template>
-  <v-chart :options="options" />
+  <ve-bmap
+    :settings="chartSettings"
+    height="100%"
+    :title="title"
+    :tooltip="{}"
+    :series="chartSeries" />
 </template>
 
 <script>
-// 引入百度地图的扩展，需要在html中引入百度地图的js库
-import 'echarts/extension/bmap/bmap'
-
 /* eslint-disable */
 const data = [
   { name: '海门', value: 9 },
@@ -414,16 +416,6 @@ const convertData = (data) => {
   return res
 }
 
-console.log(convertData(data))
-
-const testPoint2 = [{
-  name: '北京',
-  value: [116.307899, 40.057038, 200]
-}, {
-  name: '上海',
-  value: [121.465017, 31.226048, 195]
-}]
-
 export default {
   name: '',
   components: {
@@ -431,21 +423,116 @@ export default {
   },
   data () {
     return {
-      options: {}
-    }
-  },
-  methods: {
-
-  },
-// 生命周期 - 创建完成（访问当前this实例）
-  created () {
-
-  },
-// 生命周期 - 挂载完成（访问DOM元素）
-  mounted () {
-    /* eslint-disable */ 
-    this.options = {
-      // 标题
+      chartSettings: {
+        key: 'FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2',
+        bmap: {
+          center: [104.114129, 37.550339],
+          zoom: 5,
+          // 是否允许缩放
+          roam: false,
+          // 自定义地图样式
+          mapStyle: {
+            /* eslint-disable */
+            styleJson: [{
+              'featureType': 'water',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#d1d1d1'
+              }
+            }, {
+              'featureType': 'land',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#f3f3f3'
+              }
+            }, {
+              'featureType': 'railway',
+              'elementType': 'all',
+              'stylers': {
+                'visibility': 'off'
+              }
+            }, {
+              'featureType': 'highway',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#fdfdfd'
+              }
+            }, {
+              'featureType': 'highway',
+              'elementType': 'labels',
+              'stylers': {
+                'visibility': 'off'
+              }
+            }, {
+              'featureType': 'arterial',
+              'elementType': 'geometry',
+              'stylers': {
+                'color': '#fefefe'
+              }
+            }, {
+              'featureType': 'arterial',
+              'elementType': 'geometry.fill',
+              'stylers': {
+                'color': '#fefefe'
+              }
+            }, {
+              'featureType': 'poi',
+              'elementType': 'all',
+              'stylers': {
+                'visibility': 'off'
+              }
+            }, {
+              'featureType': 'green',
+              'elementType': 'all',
+              'stylers': {
+                'visibility': 'off'
+              }
+            }, {
+              'featureType': 'subway',
+              'elementType': 'all',
+              'stylers': {
+                'visibility': 'off'
+              }
+            }, {
+              'featureType': 'manmade',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#d1d1d1'
+              }
+            }, {
+              'featureType': 'local',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#d1d1d1'
+              }
+            }, {
+              'featureType': 'arterial',
+              'elementType': 'labels',
+              'stylers': {
+                'visibility': 'off'
+              }
+            }, {
+              'featureType': 'boundary',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#fefefe'
+              }
+            }, {
+              'featureType': 'building',
+              'elementType': 'all',
+              'stylers': {
+                'color': '#d1d1d1'
+              }
+            }, {
+              'featureType': 'label',
+              'elementType': 'labels.text.fill',
+              'stylers': {
+                'color': '#999999'
+              }
+            }]
+          }
+        }
+      },
       title: {
         text: 'poohbear外卖销售数据大盘',
         subtext: '销售趋势统计',
@@ -453,118 +540,7 @@ export default {
         sublink: 'https://www.baidu.com',
         left: 'center'
       },
-      // 百度地图
-      bmap: {
-        key: 'FC4CyOX8z21fIOwbrw7EVnOEt9GDLGe2',
-        center: [104.114129, 37.550339],
-        zoom: 5,
-        // 是否允许缩放
-        roam: true,
-        // 自定义地图样式
-        mapStyle: {
-          styleJson: [{
-            'featureType': 'water',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'land',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#f3f3f3'
-            }
-          }, {
-            'featureType': 'railway',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'highway',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#fdfdfd'
-            }
-          }, {
-            'featureType': 'highway',
-            'elementType': 'labels',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'arterial',
-            'elementType': 'geometry',
-            'stylers': {
-              'color': '#fefefe'
-            }
-          }, {
-            'featureType': 'arterial',
-            'elementType': 'geometry.fill',
-            'stylers': {
-              'color': '#fefefe'
-            }
-          }, {
-            'featureType': 'poi',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'green',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'subway',
-            'elementType': 'all',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'manmade',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'local',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'arterial',
-            'elementType': 'labels',
-            'stylers': {
-              'visibility': 'off'
-            }
-          }, {
-            'featureType': 'boundary',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#fefefe'
-            }
-          }, {
-            'featureType': 'building',
-            'elementType': 'all',
-            'stylers': {
-              'color': '#d1d1d1'
-            }
-          }, {
-            'featureType': 'label',
-            'elementType': 'labels.text.fill',
-            'stylers': {
-              'color': '#999999'
-            }
-          }]
-        }
-      },
-      // 提示栏
-      tooltip: {},
-      // 系列绘图
-      series: [{
+      chartSeries: [{
         name: '销售额',
         type: 'scatter',
         // 坐标系统，高德和百度的不同。需要指定
@@ -629,6 +605,17 @@ export default {
         }
       }]
     }
+  },
+  methods: {
+
+  },
+// 生命周期 - 创建完成（访问当前this实例）
+  created () {
+
+  },
+// 生命周期 - 挂载完成（访问DOM元素）
+  mounted () {
+
   }
 }
 </script>
