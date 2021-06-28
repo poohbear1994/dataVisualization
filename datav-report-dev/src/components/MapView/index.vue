@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-28 18:03:11
+ * @LastEditTime: 2021-06-28 19:08:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
@@ -27,7 +27,9 @@
           <div class="title">热门搜索</div>
         </template>
         <template>
-          <div class="chart-wrapper"></div>
+          <div class="chart-wrapper">
+            <word-cloud />
+          </div>
         </template>
       </el-card>
     </div>
@@ -38,11 +40,13 @@
 
 import BMap2 from '@/components/BMapScatter/BMap2.vue'
 import LiquidFill from '@/components/LiquidFill/index.vue'
+import WordCloud from '@/components/WordCloud/index.vue'
 export default {
   name: 'mapView',
   components: {
     BMapScatter: BMap2,
-    LiquidFill
+    LiquidFill,
+    WordCloud
   },
   data () {
     return {

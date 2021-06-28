@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-28 18:44:39
- * @LastEditTime: 2021-06-28 18:56:02
+ * @LastEditTime: 2021-06-28 19:26:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/WordCloud.vue
@@ -55,20 +55,17 @@ export default {
             fontWeight: 'bold',
             // Color can be a callback function or a color string
             color: function () {
-                // Random color
-                return 'rgb(' + [
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160),
-                    Math.round(Math.random() * 160)
-                ].join(',') + ')'
+              // Random color
+              return 'rgb(' + [
+                  Math.round(Math.random() * 160),
+                  Math.round(Math.random() * 160),
+                  Math.round(Math.random() * 160)
+              ].join(',') + ')'
             }
-          }
-        },
-        emphasis: {
-          focus: 'self',
-          textStyle: {
-              shadowBlur: 10,
-              shadowColor: '#333'
+          },
+          emphasis: {
+            shadowBlur: 10,
+            shadowColor: '#333'
           }
         }
       }]
