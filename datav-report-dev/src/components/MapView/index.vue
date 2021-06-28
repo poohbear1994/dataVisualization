@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-28 16:24:48
+ * @LastEditTime: 2021-06-28 18:03:11
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
@@ -18,6 +18,7 @@
         </template>
         <template>
           <div class="chart-wrapper">
+            <liquid-fill />
           </div>
         </template>
       </el-card>
@@ -36,10 +37,12 @@
 <script>
 
 import BMap2 from '@/components/BMapScatter/BMap2.vue'
+import LiquidFill from '@/components/LiquidFill/index.vue'
 export default {
   name: 'mapView',
   components: {
-    BMapScatter: BMap2
+    BMapScatter: BMap2,
+    LiquidFill
   },
   data () {
     return {
