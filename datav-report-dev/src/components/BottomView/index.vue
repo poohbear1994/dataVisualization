@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-21 18:54:12
+ * @LastEditTime: 2021-06-28 16:10:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     onPageChange (page) {
-      console.log(page)
+
     },
     renderPieChart () {
       const mockData = [
@@ -193,7 +193,6 @@ export default {
         tooltip: {
           trigger: 'item',
           formatter (params) {
-            console.log(params)
             const str = params.seriesName + '<br />' + params.marker + '数量:' + params.data.value + '<br />' + '占比:' + params.data.percent
             return str
           }

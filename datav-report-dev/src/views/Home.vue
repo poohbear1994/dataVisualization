@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-21 15:34:16
+ * @LastEditTime: 2021-06-28 16:12:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
@@ -34,7 +34,6 @@ export default {
 <style lang="scss" scoped>
 .home {
   width: 100%;
-  height: 100%;
   padding: 20px;
   background: #eee;
   box-sizing: border-box;
