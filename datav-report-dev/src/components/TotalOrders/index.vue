@@ -1,29 +1,30 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:55:40
- * @LastEditTime: 2021-06-20 18:44:32
+ * @LastEditTime: 2021-06-29 18:50:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
 -->
 <template>
-  <common-card title="累计订单" value="32,039,165">
+  <common-card title="累计订单" :value="orderToday">
     <template>
       <v-chart :options="getOptions()"></v-chart>
       <div id="total-orders-chart" :style="{width: '100%', height:'100%'}"></div>
     </template>
     <template v-slot:footer>
       <span>昨日订单量</span>
-      <span class="emphasis">8,239,894</span>
+      <span class="emphasis">{{orderLastDay}}</span>
     </template>
   </common-card>
 </template>
 
 <script>
 import commonCardMixin from '@/mixins/commonCardMixin'
+import commonDataMixin from '@/mixins/commonDataMixin'
 export default {
   name: 'totalOrders',
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
   data () {
     return {
 
@@ -31,7 +32,8 @@ export default {
   },
   methods: {
     getOptions () {
-      return {
+      return this.orderTrend.length > 0
+      ? {
         xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -42,7 +44,7 @@ export default {
         },
         series: [{
           type: 'line',
-          data: [620, 432, 220, 534, 790, 430, 220, 320, 532, 320, 834, 690, 530, 220, 620],
+          data: this.orderTrend,
           // 设置折线面积
           areaStyle: {
             color: 'purple'
@@ -65,6 +67,7 @@ export default {
           right: 0
         }
       }
+      : null
     }
   },
 // 生命周期 - 创建完成（访问当前this实例）

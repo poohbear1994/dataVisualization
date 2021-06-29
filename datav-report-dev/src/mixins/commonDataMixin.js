@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-29 18:34:15
+ * @LastEditTime: 2021-06-29 18:42:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
@@ -23,10 +23,14 @@ function format (v) {
   return `${v}`.replace(reg, '$&,')
 }
 
-// 数据包装
-/* eslint-disable */
+// 数字包装
 function wrapperNumber (o, k) {
   return o && o[k] ? format(o[k]) : 0
+}
+
+// 数组包装
+function wrapperArray (o, k) {
+  return o && o[k] ? o[k] : []
 }
 
 export default {
@@ -52,6 +56,18 @@ export default {
       // 昨日销售额
       salesLastDay () {
         return wrapperMoney(this.reportData, 'salesLastDay')
+      },
+      // 今日订单量
+      orderToday () {
+        return wrapperNumber(this.reportData, 'orderToday')
+      },
+      // 昨日订单量
+      orderLastDay () {
+        return wrapperNumber(this.reportData, 'orderLastDay')
+      },
+      // 订单销售趋势
+      orderTrend () {
+        return wrapperArray(this.reportData, 'orderTrend')
       },
       wordCloudData () {
         return this.getWordCloudData()
