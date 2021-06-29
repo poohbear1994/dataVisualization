@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:49:01
- * @LastEditTime: 2021-06-19 15:57:25
+ * @LastEditTime: 2021-06-29 17:06:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalSales/index.vue
@@ -31,9 +31,10 @@
 
 <script>
 import commonCardMixin from '@/mixins/commonCardMixin'
+import commonDataMixin from '@/mixins/commonDataMixin'
 export default {
   name: 'totalSales',
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
   data () {
     return {
 

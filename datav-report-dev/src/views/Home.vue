@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-29 16:44:06
+ * @LastEditTime: 2021-06-29 17:02:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
@@ -38,6 +38,26 @@ export default {
       reportData: null,
       wordCloudData: null,
       mapData: null
+    }
+  },
+  // 提供
+  provide () {
+    // 这里传递的是method
+    return {
+      getReportData: this.getReportData,
+      getWordCloudData: this.getWordCloudData,
+      getMapData: this.getMapData
+    }
+  },
+  methods: {
+    getReportData () {
+      return this.reportData
+    },
+    getWordCloudData () {
+      return this.wordCloudData
+    },
+    getMapData () {
+      return this.mapData
     }
   },
   mounted () {
