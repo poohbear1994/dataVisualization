@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-29 19:17:13
+ * @LastEditTime: 2021-06-29 19:54:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
@@ -31,6 +31,11 @@ function wrapperNumber (o, k) {
 // 数组包装
 function wrapperArray (o, k) {
   return o && o[k] ? o[k] : []
+}
+
+// 数字包装
+function wrapperOriginalNumber (o, k) {
+  return o && o[k] ? o[k] : 0
 }
 
 export default {
@@ -74,10 +79,10 @@ export default {
         return wrapperArray(this.reportData, 'orderTrend')
       },
 
-      // TodayUsers用户数据
+      // TodayUsers组件数据
       // 今日交易用户数
-      userToday () {
-        return wrapperNumber(this.reportData, 'userToday')
+      orderUser () {
+        return wrapperNumber(this.reportData, 'orderUser')
       },
       // 退单率
       returnRate () {
@@ -90,6 +95,28 @@ export default {
       // 今日用户交易时刻
       orderUserTrendAxis () {
         return wrapperArray(this.reportData, 'orderUserTrendAxis')
+      },
+
+      // TotalUsers组件数据
+      // 累计用户数
+      totalUser () {
+        return wrapperNumber(this.reportData, 'userToday')
+      },
+      // 昨日用户增长率
+      userGrowthLastDay () {
+        return wrapperPercentage(this.reportData, 'userGrowthLastDay')
+      },
+      // 上月用户增长率
+      userGrowthLastMonth () {
+        return wrapperPercentage(this.reportData, 'userGrowthLastMonth')
+      },
+      // 上月用户数
+      userLastMonth () {
+        return wrapperOriginalNumber(this.reportData, 'userLastMonth')
+      },
+      // 今日用户数
+      userToday () {
+        return wrapperOriginalNumber(this.reportData, 'userToday')
       },
       wordCloudData () {
         return this.getWordCloudData()

@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:55:40
- * @LastEditTime: 2021-06-29 19:24:51
+ * @LastEditTime: 2021-06-29 19:48:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
 -->
 <template>
-  <common-card title="今日交易用户" :value="`${userToday}`">
+  <common-card title="今日交易用户" :value="orderUser">
     <template>
       <v-chart :options="getOptions()"></v-chart>
     </template>

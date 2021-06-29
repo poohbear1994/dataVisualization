@@ -1,23 +1,23 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:55:40
- * @LastEditTime: 2021-06-20 19:00:55
+ * @LastEditTime: 2021-06-29 19:59:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
 -->
 <template>
-  <common-card title="总计用户数" value="1,087,503">
+  <common-card title="总计用户数" :value="totalUser">
     <template>
       <v-chart :options="getOptions()"></v-chart>
     </template>
     <template v-slot:footer>
       <div class="total-users-footer">
         <span>日同比 </span>
-        <span class="emphasis">8.73%</span>
+        <span class="emphasis">{{userGrowthLastDay}}</span>
         <div class="increase"></div>
         <span class="month">月同比 </span>
-        <span class="emphasis">35.91%</span>
+        <span class="emphasis">{{userGrowthLastMonth}}</span>
         <div class="decrease"></div>
       </div>
     </template>
@@ -26,9 +26,10 @@
 
 <script>
 import commonCardMixin from '@/mixins/commonCardMixin'
+import commonDataMixin from '@/mixins/commonDataMixin'
 export default {
   name: 'totalUsers',
-  mixins: [commonCardMixin],
+  mixins: [commonDataMixin, commonCardMixin],
   data () {
     return {
 
@@ -45,6 +46,7 @@ export default {
           show: false
         },
         series: [{
+          namr: '上月用户数',
           type: 'bar',
           // 利用stack让相同的serie重叠显示
           stack: '总量',
@@ -52,19 +54,20 @@ export default {
           itemStyle: {
             color: '#45c946'
           },
-          data: [200]
+          data: [this.userLastMonth]
         }, {
+          namr: '今日用户',
           type: 'bar',
           stack: '总量',
           barWidth: '20%',
           itemStyle: {
             color: '#eee'
           },
-          data: [250]
+          data: [this.userToday]
         }, {
           // 使用自定义图表绘制三角形
           type: 'custom',
-          data: [200],
+          data: [this.userLastMonth],
           stack: '总量',
           renderItem: (params, api) => {
             const value = api.value(0)

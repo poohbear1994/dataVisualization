@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:44:06
- * @LastEditTime: 2021-06-19 15:57:01
+ * @LastEditTime: 2021-06-29 19:43:27
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/CommonCard/index.vue
@@ -28,7 +28,7 @@ export default {
   },
   props: {
     title: String,
-    value: String
+    value: [String, Number]
   },
   data () {
     return {
