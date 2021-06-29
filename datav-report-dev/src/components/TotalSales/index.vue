@@ -1,30 +1,30 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:49:01
- * @LastEditTime: 2021-06-29 17:06:41
+ * @LastEditTime: 2021-06-29 18:18:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalSales/index.vue
 -->
 <template>
-  <common-card title="总计销售额" value="¥ 32,039,165">
+  <common-card title="总计销售额" :value="salesToday">
     <template>
       <div class="compare-wrapper">
         <div class="compare">
           <span>日同比</span>
-          <span class="emphasis">7.33%</span>
+          <span class="emphasis">{{salesGrowthLastDay}}</span>
           <div class="increase"></div>
         </div>
         <div class="compare">
           <span>月同比</span>
-          <span class="emphasis">5.12%</span>
+          <span class="emphasis">{{salesGrowthLastMonth}}</span>
           <div class="decrease"></div>
         </div>
       </div>
     </template>
     <template v-slot:footer>
       <span>昨日销售额 </span>
-      <span class="emphasis">¥ 30,000,000</span>
+      <span class="emphasis">{{salesLastDay}}</span>
     </template>
   </common-card>
 </template>

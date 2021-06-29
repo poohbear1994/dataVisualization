@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-29 17:02:03
+ * @LastEditTime: 2021-06-29 17:51:04
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
@@ -78,6 +78,7 @@ export default {
     reportData()
       .then(data => {
         this.reportData = data
+        console.log(data)
       })
   }
 }
