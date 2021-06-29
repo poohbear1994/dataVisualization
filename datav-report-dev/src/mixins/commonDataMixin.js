@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-29 18:19:42
+ * @LastEditTime: 2021-06-29 18:34:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
@@ -9,7 +9,7 @@
 
 // 金钱数据包装
 function wrapperMoney (o, k) {
-  return o && o[k] ? `¥ ${o[k]}` : '¥ 0.00'
+  return o && o[k] ? `¥ ${format(o[k])}` : '¥ 0.00'
 }
 
 // 数据百分比化
@@ -19,7 +19,8 @@ function wrapperPercentage (o, k) {
 
 // 数据千分位格式化
 function format (v) {
-  return v
+  const reg = /\d{1,3}(?=(\d{3})+$)/g
+  return `${v}`.replace(reg, '$&,')
 }
 
 // 数据包装
