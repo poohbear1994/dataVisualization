@@ -1,13 +1,13 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:49:01
- * @LastEditTime: 2021-06-29 18:18:15
+ * @LastEditTime: 2021-06-29 19:06:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalSales/index.vue
 -->
 <template>
-  <common-card title="总计销售额" :value="salesToday">
+  <common-card title="累计销售额" :value="salesToday">
     <template>
       <div class="compare-wrapper">
         <div class="compare">

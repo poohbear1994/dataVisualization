@@ -1,28 +1,29 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-18 13:55:40
- * @LastEditTime: 2021-06-20 18:44:20
+ * @LastEditTime: 2021-06-29 19:24:51
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TotalOrders/index.vue
 -->
 <template>
-  <common-card title="总计销售额" value="¥ 32,039,165">
+  <common-card title="今日交易用户" :value="`${userToday}`">
     <template>
       <v-chart :options="getOptions()"></v-chart>
     </template>
     <template v-slot:footer>
       <span>退单率 </span>
-      <span class="emphasis">5.14%</span>
+      <span class="emphasis">{{returnRate}}</span>
     </template>
   </common-card>
 </template>
 
 <script>
 import commonCardMixin from '@/mixins/commonCardMixin'
+import commonDataMixin from '@/mixins/commonDataMixin'
 export default {
   name: 'todayUsers',
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
   data () {
     return {
 
@@ -35,17 +36,18 @@ export default {
         xAxis: {
           type: 'category',
           show: false,
-          data: ['00:01', '00:02', '00:03', '00:04', '00:05', '00:06', '00:07', '00:08', '00:09', '00:10', '00:11', '00:12', '00:13', '00:14']
+          data: this.orderUserTrendAxis
         },
         yAxis: {
           show: false
         },
         series: [{
+          name: '用户实时交易订单量',
           type: 'bar',
-          data: [410, 82, 200, 334, 390, 330, 220, 150, 82, 200, 134, 290, 330, 150],
+          data: this.orderUserTrend,
           barWidth: '60%'
         }],
-        tooltip: true,
+        tooltip: {},
         grid: {
           top: 0,
           left: 0,

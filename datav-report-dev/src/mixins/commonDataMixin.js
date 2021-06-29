@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-29 18:42:25
+ * @LastEditTime: 2021-06-29 19:17:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
@@ -41,6 +41,8 @@ export default {
         // 在计算属性中调用传递过来的method，获取到正确的数据
         return this.getReportData()
       },
+
+      // TotalSales组件数据
       // 累计销售额
       salesToday () {
         return wrapperMoney(this.reportData, 'salesToday')
@@ -57,6 +59,8 @@ export default {
       salesLastDay () {
         return wrapperMoney(this.reportData, 'salesLastDay')
       },
+
+      // TotalOrders组件数据
       // 今日订单量
       orderToday () {
         return wrapperNumber(this.reportData, 'orderToday')
@@ -68,6 +72,24 @@ export default {
       // 订单销售趋势
       orderTrend () {
         return wrapperArray(this.reportData, 'orderTrend')
+      },
+
+      // TodayUsers用户数据
+      // 今日交易用户数
+      userToday () {
+        return wrapperNumber(this.reportData, 'userToday')
+      },
+      // 退单率
+      returnRate () {
+        return wrapperPercentage(this.reportData, 'returnRate')
+      },
+      // 订单交易数据
+      orderUserTrend () {
+        return wrapperArray(this.reportData, 'orderUserTrend')
+      },
+      // 今日用户交易时刻
+      orderUserTrendAxis () {
+        return wrapperArray(this.reportData, 'orderUserTrendAxis')
       },
       wordCloudData () {
         return this.getWordCloudData()
