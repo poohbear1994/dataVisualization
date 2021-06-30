@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-30 16:13:26
+ * @LastEditTime: 2021-06-30 17:22:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
@@ -65,7 +65,6 @@ export default {
     wordcloud()
       .then(data => {
         this.wordCloudData = data
-        console.log(data)
       })
       .catch(error => {
         alert(error)
@@ -79,6 +78,7 @@ export default {
     reportData()
       .then(data => {
         this.reportData = data
+        console.log(data)
       })
   }
 }

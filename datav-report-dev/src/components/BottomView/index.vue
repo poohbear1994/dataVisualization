@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-30 17:07:42
+ * @LastEditTime: 2021-06-30 17:45:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
@@ -53,7 +53,7 @@
           <div class="title-wrapper">
             <div class="title">分类销售排行</div>
             <div class="radio-wrapper">
-              <el-radio-group v-model="radioSelect" size="small">
+              <el-radio-group v-model="radioSelect" size="small" @change="onPieChartCategoryChange">
                 <el-radio-button label="品类"></el-radio-button>
                 <el-radio-button label="商品"></el-radio-button>
               </el-radio-group>
@@ -72,6 +72,7 @@
 
 <script>
 import commonDataMixin from '@/mixins/commonDataMixin.js'
+const colors = ['#8d7fec', '#5085f2', '#f8726b', '#e7e702', '#78f283', '#4bc1fc']
 export default {
   name: 'bottomView',
   components: {
@@ -111,9 +112,16 @@ export default {
       this.userCount = this.format(totalData.reduce((s, i) => i.users + s, 0))
       this.searchCount = this.format(totalData.reduce((s, i) => i.count + s, 0))
       this.renderLineChart()
+    },
+    category1 () {
+      this.renderPieChart()
     }
   },
   methods: {
+    onPieChartCategoryChange (type) {
+      this.radioSelect = type
+      this.renderPieChart()
+    },
     onPageChange (page) {
       this.renderTable(page)
     },
@@ -161,36 +169,37 @@ export default {
       this.searchNumberOption = createOption('count')
     },
     renderPieChart () {
-      const mockData = [
-        {
-          legendname: '粉面粥店',
-          value: 67,
-          percent: '15.40%',
+      if (!this.category1.data1 || !this.category2.data1) {
+        return
+      }
+      let data
+      let axis
+      let total = 0
+      if (this.radioSelect === '品类') {
+        data = this.category1.data1.slice(0, 6)
+        axis = this.category1.axisX.slice(0, 6)
+        total = data.reduce((s, i) => s + i, 0)
+      } else {
+        data = this.category2.data1.slice(0, 6)
+        axis = this.category2.axisX.slice(0, 6)
+        total = data.reduce((s, i) => s + i, 0)
+      }
+      const chartData = []
+      data.forEach((item, index) => {
+        const percent = `${(item / total * 100).toFixed(2)}%`
+        chartData.push({
+          legendname: axis[index],
+          value: item,
+          percent,
           itemStyle: {
-            color: '#e7e702'
+            color: colors[index % 6]
           },
-          name: '粉面粥店 | 15.40%'
-        }, {
-          legendname: '简餐便当',
-          value: 97,
-          percent: '22.30%',
-          itemStyle: {
-            color: '#8d7fec'
-          },
-          name: '简餐便当 | 22.30%'
-        }, {
-          legendname: '汉堡披萨',
-          value: 92,
-          percent: '21.15%',
-          itemStyle: {
-            color: '#5085f2'
-          },
-          name: '汉堡披萨 | 21.15%'
-        }
-      ]
+          name: `${axis[index]} | ${percent}`
+        })
+      })
       this.categoryOptions = {
         title: [{
-          text: '品类分布',
+          text: `${this.radioSelect}分布`,
           textStyle: {
             fontSize: 14,
             color: '#666'
@@ -199,7 +208,7 @@ export default {
           top: 20
         }, {
           text: '累计订单量',
-          subtext: '320',
+          subtext: total,
           x: '34.5%',
           y: '43.5%',
           textAlign: 'center',
@@ -220,9 +229,9 @@ export default {
           }
         },
         series: [{
-          name: '品类分布',
+          name: `${this.radioSelect}分布`,
           type: 'pie',
-          data: mockData,
+          data: chartData,
           label: {
             normal: {
               show: true,

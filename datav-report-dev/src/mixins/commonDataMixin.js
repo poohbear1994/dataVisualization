@@ -1,11 +1,23 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-30 16:44:41
+ * @LastEditTime: 2021-06-30 17:21:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
  */
+// 封装对象
+function wrapperObject (o, k) {
+  if (o && k.indexOf('.') >= 0) {
+    const keys = k.split('.')
+    keys.forEach(key => {
+      o = o[key]
+    })
+    return o
+  } else {
+    return o && o[k] ? o[k] : {}
+  }
+}
 
 // 金钱数据包装
 function wrapperMoney (o, k) {
@@ -145,9 +157,16 @@ export default {
       return wrapperArray(this.reportData, 'userRank')
     },
 
+    // BottomView组件数据
     // 获取关键次搜索数据
     wordCloudData () {
       return this.getWordCloudData()
+    },
+    category1 () {
+      return wrapperObject(this.reportData, 'category.data1')
+    },
+    category2 () {
+      return wrapperObject(this.reportData, 'category.data2')
     },
 
     // 获取地图数据
