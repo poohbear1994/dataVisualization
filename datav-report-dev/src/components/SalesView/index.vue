@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 20:54:17
- * @LastEditTime: 2021-06-21 14:04:30
+ * @LastEditTime: 2021-06-30 16:04:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /datav-report-dev/src/components/TopView/index.vue
@@ -46,11 +46,13 @@
 </template>
 
 <script>
+import commonDataMixin from '@/mixins/commonDataMixin'
 export default {
   name: 'salesView',
   components: {
 
   },
+  mixins: [commonDataMixin],
   data () {
     return {
       activeIndex: '1',
@@ -86,9 +88,32 @@ export default {
 
         }
       },
-      chartOption: {
+      chartOption: {}
+    }
+  },
+  computed: {
+    rankData () {
+      return this.activeIndex === '1' ? this.orderRank : this.userRank
+    }
+  },
+  watch: {
+    orderFullYear () {
+      this.render(this.orderFullYear, this.orderFullYearAxis, '年度销售额')
+    }
+  },
+  methods: {
+    onMenuSelect (index) {
+      this.activeIndex = index
+      if (index === '1') {
+        this.render(this.orderFullYear, this.orderFullYearAxis, '年度销售额')
+      } else {
+        this.render(this.userFullYear, this.userFullYearAxis, '年度用户访问量')
+      }
+    },
+    render (data, axis, title) {
+      this.chartOption = {
         title: {
-          text: '年度销售额',
+          text: title,
           textStyle: {
             fontSize: 12,
             color: '#666'
@@ -98,7 +123,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+          data: axis,
           axisTick: {
             alignWithLabel: true,
             lineStyle: {
@@ -134,7 +159,7 @@ export default {
         series: [{
           type: 'bar',
           barWidth: '35%',
-          data: [200, 250, 150, 100, 400, 300, 350, 200, 150, 250, 450, 500]
+          data: data
         }],
         color: ['#3398DB'],
         grid: {
@@ -143,43 +168,7 @@ export default {
           right: 60,
           bottom: 50
         }
-      },
-      rankData: [
-        {
-          no: 1,
-          name: '麦当劳',
-          money: '323,234'
-        }, {
-          no: 2,
-          name: '麦当劳',
-          money: '323,234'
-        }, {
-          no: 3,
-          name: '麦当劳',
-          money: '323,234'
-        }, {
-          no: 4,
-          name: '麦当劳',
-          money: '323,234'
-        }, {
-          no: 5,
-          name: '麦当劳',
-          money: '323,234'
-        }, {
-          no: 6,
-          name: '麦当劳',
-          money: '323,234'
-        }, {
-          no: 7,
-          name: '麦当劳',
-          money: '323,234'
-        }
-      ]
-    }
-  },
-  methods: {
-    onMenuSelect (index) {
-      console.log(index)
+      }
     }
   },
 // 生命周期 - 创建完成（访问当前this实例）

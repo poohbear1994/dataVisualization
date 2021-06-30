@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-29 19:54:00
+ * @LastEditTime: 2021-06-30 15:57:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
@@ -117,6 +117,32 @@ export default {
       // 今日用户数
       userToday () {
         return wrapperOriginalNumber(this.reportData, 'userToday')
+      },
+
+      // SalesView组件数据
+      // 年销售额
+      orderFullYear () {
+        return wrapperArray(this.reportData, 'orderFullYear')
+      },
+      // 轴
+      orderFullYearAxis () {
+        return wrapperArray(this.reportData, 'orderFullYearAxis')
+      },
+      // 排行
+      orderRank () {
+        return wrapperArray(this.reportData, 'orderRank')
+      },
+      // 用户年访问量
+      userFullYear () {
+        return wrapperArray(this.reportData, 'userFullYear')
+      },
+      // 用户年访问量轴
+      userFullYearAxis () {
+        return wrapperArray(this.reportData, 'userFullYearAxis')
+      },
+      // 用户访问量排行
+      userRank () {
+        return wrapperArray(this.reportData, 'userRank')
       },
       wordCloudData () {
         return this.getWordCloudData()
