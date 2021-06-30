@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 17:03:28
- * @LastEditTime: 2021-06-30 17:21:56
+ * @LastEditTime: 2021-06-30 18:33:30
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/mixins/commonDataMixin.js
@@ -116,11 +116,11 @@ export default {
     },
     // 昨日用户增长率
     userGrowthLastDay () {
-      return wrapperPercentage(this.reportData, 'userGrowthLastDay')
+      return wrapperNumber(this.reportData, 'userGrowthLastDay')
     },
     // 上月用户增长率
     userGrowthLastMonth () {
-      return wrapperPercentage(this.reportData, 'userGrowthLastMonth')
+      return wrapperNumber(this.reportData, 'userGrowthLastMonth')
     },
     // 上月用户数
     userLastMonth () {
