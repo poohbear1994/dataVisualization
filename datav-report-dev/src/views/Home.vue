@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-17 17:15:17
- * @LastEditTime: 2021-06-30 17:22:13
+ * @LastEditTime: 2021-06-30 17:50:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/views/Home.vue
@@ -73,12 +73,12 @@ export default {
     mapScatter()
       .then(data => {
         this.mapData = data
+        console.log(data)
       })
     // 获取数据报表基础数据
     reportData()
       .then(data => {
         this.reportData = data
-        console.log(data)
       })
   }
 }
