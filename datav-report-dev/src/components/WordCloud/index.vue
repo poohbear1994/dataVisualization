@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-28 16:27:16
- * @LastEditTime: 2021-06-28 19:27:55
+ * @LastEditTime: 2021-06-30 18:50:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/components/WordCloud/index.vue
@@ -15,27 +15,32 @@
 </template>
 
 <script>
+import commonDataMixin from '@/mixins/commonDataMixin.js'
 export default {
   name: 'WorldCloud',
   components: {
 
   },
+  mixins: [commonDataMixin],
   data () {
     return {
-      chartData: {
-        columns: ['name', 'value'],
-        rows: [{
-          name: '噗噗熊',
-          value: 80
-        }, {
-          name: '数据可视化',
-          value: 50
-        }, {
-          name: 'ljx',
-          value: 40
-        }]
-      },
+      chartData: {},
       chartSettings: {}
+    }
+  },
+  watch: {
+    wordCloudData () {
+      const data = []
+      this.wordCloudData.forEach(item => {
+        data.push({
+          name: item.word,
+          value: item.count
+        })
+      })
+      this.chartData = {
+        columns: ['name', 'value'],
+        rows: data
+      }
     }
   },
   methods: {
