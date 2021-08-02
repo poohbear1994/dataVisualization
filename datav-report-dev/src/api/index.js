@@ -1,12 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-06-29 16:03:47
- * @LastEditTime: 2021-06-29 16:43:49
+ * @LastEditTime: 2021-07-18 08:37:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /Data visualization/datav-report-dev/src/api/index.js
  */
-import request from '../utils/request'
+import request from '../utils/request2'
 
 /**
  * @description: 获取词云数据
