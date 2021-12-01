@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "rollup -wc rollup.config.dev.js"
+    "dev": "rollup -wc rollup.config.dev.js",
+    "build": "rollup -c rollup.config.dev.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "rollup": "^2.60.2"
+    "@babel/preset-env": "^7.16.4",
+    "rollup": "^2.60.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "sam-test-data": "^0.0.5"
   }
 }
