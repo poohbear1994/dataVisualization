@@ -14,7 +14,6 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
     "rollup": "^2.60.2",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "sam-test-data": "^0.0.5"
+    "rollup-plugin-node-resolve": "^5.2.0"
   }
 }
