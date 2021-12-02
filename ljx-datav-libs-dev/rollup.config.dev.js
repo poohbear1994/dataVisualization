@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-01 21:22:32
- * @LastEditTime: 2021-12-02 12:11:46
+ * @LastEditTime: 2021-12-02 12:29:23
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: /ljx-datav-libs-dev/rollup.config.dev.js
@@ -9,6 +9,7 @@
 const path = require('path')
 // 引用rollup-plugin-node-resolve插件
 const resolve = require('rollup-plugin-node-resolve')
+const commonjs = require('rollup-plugin-commonjs')
 
 // 打包入口路径
 const inputPath = path.resolve(__dirname, './src/index.js')
@@ -34,7 +35,8 @@ module.exports = {
   }],
   plugins: [
     // 使用rollup-plugin-node-resolve插件
-    resolve()
+    resolve(),
+    commonjs()
   ],
   external:['sam-test-data']
 }
